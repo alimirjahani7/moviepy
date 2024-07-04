@@ -177,7 +177,7 @@ class FFMPEG_VideoReader:
         if pos == self.pos:
             return self.lastread
         elif (pos < self.pos) or (pos > self.pos + 100):
-            self.initialize(t)
+            self.initialize((pos - 1) / self.fps)
             self.pos = pos
         else:
             self.skip_frames(pos-self.pos-1)
@@ -219,7 +219,7 @@ def ffmpeg_read_image(filename, with_mask=True):
       this layer as the mask of the returned ImageClip
 
     """
-    pix_fmt = 'rgba' if with_mask else "rgb24" 
+    pix_fmt = 'rgba' if with_mask else "rgb24"
     reader = FFMPEG_VideoReader(filename, pix_fmt=pix_fmt, check_duration=False)
     im = reader.lastread
     del reader
