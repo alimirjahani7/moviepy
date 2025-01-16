@@ -40,7 +40,7 @@ from moviepy.video.fx.Resize import Resize
 from moviepy.video.fx.Rotate import Rotate
 from moviepy.video.io.ffmpeg_writer import ffmpeg_write_video
 from moviepy.video.io.gif_writers import write_gif_with_imageio
-from moviepy.video.tools.drawing import blit
+from moviepy.video.tools.drawing import blit, blit_gpu
 
 
 class VideoClip(Clip):
@@ -779,6 +779,8 @@ class VideoClip(Clip):
             pos[1] = D[pos[1]]
 
         pos = map(int, pos)
+        if os.environ.get('PLATFORM', "cpu") == "gpu":
+            return blit_gpu(im_img, picture, pos, mask=im_mask)
         return blit(im_img, picture, pos, mask=im_mask)
 
     def with_background_color(self, size=None, color=(0, 0, 0), pos=None, opacity=None):

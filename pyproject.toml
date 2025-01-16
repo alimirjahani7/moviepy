@@ -34,6 +34,7 @@ dependencies = [
     "proglog<=1.0.0",
     "python-dotenv>=0.10",
     "pillow>=9.2.0,<11.0",
+    "torch==2.5.1"
 ]
 
 [project.optional-dependencies]
