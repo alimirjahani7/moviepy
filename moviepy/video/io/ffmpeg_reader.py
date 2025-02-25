@@ -154,7 +154,7 @@ class FFMPEG_VideoReader:
                 "-",
             ]
         )
-        if os.environ.get('PLATFORM', '') == 'GPU':
+        if os.environ.get('PLATFORM', '') == 'gpu':
             cmd[2:2] = ["-hwaccel", "cuda", "-hwaccel_output_format", "cuda"]
         popen_params = cross_platform_popen_params(
             {
