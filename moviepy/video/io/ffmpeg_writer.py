@@ -123,6 +123,8 @@ class FFMPEG_VideoWriter:
             "-i",
             "-",
         ]
+        if ffmpeg_params is not None:
+            cmd[2:2] = ffmpeg_params
         if audiofile is not None:
             if audio_codec is None:
                 audio_codec = "copy"
@@ -135,8 +137,6 @@ class FFMPEG_VideoWriter:
 
         cmd.extend(["-preset", preset])
 
-        if ffmpeg_params is not None:
-            cmd.extend(ffmpeg_params)
 
         if bitrate is not None:
             cmd.extend(["-b", bitrate])
