@@ -154,8 +154,8 @@ class FFMPEG_VideoReader:
                 "-",
             ]
         )
-        if os.environ.get('PLATFORM', '') == 'gpu':
-            cmd[2:2] = ["-hwaccel", "cuda", "-hwaccel_output_format", "cuda"]
+        # if os.environ.get('PLATFORM', '') == 'GPU':
+        #     cmd[2:2] = ["-hwaccel", "cuda", "-hwaccel_output_format", "cuda"]
         popen_params = cross_platform_popen_params(
             {
                 "bufsize": self.bufsize,
@@ -497,7 +497,8 @@ class FFmpegInfosParser:
 
                 # exit chapter
                 if self._current_chapter:
-                    input_chapters[input_number].append(self._current_chapter)
+                    if len(input_chapters) >= input_number + 1:
+                        input_chapters[input_number].append(self._current_chapter)
                     self._current_chapter = None
 
                 if "input_number" not in self._current_input_file:
